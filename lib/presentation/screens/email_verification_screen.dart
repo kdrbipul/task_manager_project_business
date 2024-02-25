@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager_project/presentation/screens/email_verification_screen.dart';
-import 'package:task_manager_project/presentation/screens/sign_up_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class EmailVerifyScreen extends StatefulWidget {
+  const EmailVerifyScreen({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<EmailVerifyScreen> createState() => _EmailVerifyScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
   final TextEditingController _emailTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -33,8 +31,15 @@ class _SignInScreenState extends State<SignInScreen> {
                       height: 60,
                     ),
                     Text(
-                      'Get Started With',
+                      'Email Verification',
                       style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'A 6 digit verification pin will send to your email address',
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                     const SizedBox(
                       height: 16,
@@ -50,46 +55,21 @@ class _SignInScreenState extends State<SignInScreen> {
                     const SizedBox(
                       height: 12,
                     ),
-                    TextFormField(
-                      controller: _passwordTEController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        hintText: 'Password',
-                        labelText: 'Password',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 38,
-                    ),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {},
-                        child: const Icon(Icons.arrow_circle_right_outlined),
+                        child: const Text('Verify'),
                       ),
                     ),
                     const SizedBox(
                       height: 65,
                     ),
-                    Center(
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          foregroundColor: AppColor.secondaryTextColor,
-                          textStyle: const TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const EmailVerifyScreen(),),);
-                        },
-                        child: const Text('Forgot Password?'),
-                      ),
-                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Don't have an account?",
+                          "Already have an account?",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w300,
@@ -98,17 +78,12 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SignUpScreen(),
-                              ),
-                            );
+                            Navigator.pop(context);
                           },
                           style: TextButton.styleFrom(
                             foregroundColor: AppColor.themeColor,
                           ),
-                          child: const Text('Sign Up'),
+                          child: const Text('Sign in'),
                         ),
                       ],
                     )

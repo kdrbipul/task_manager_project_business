@@ -10,6 +10,15 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+
+  final TextEditingController _emailTEController = TextEditingController();
+  final TextEditingController _firstNameTEController = TextEditingController();
+  final TextEditingController _lastNameTEController = TextEditingController();
+  final TextEditingController _phoneTEController = TextEditingController();
+  final TextEditingController _passwordTEController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +27,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Form(
+              key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -32,7 +42,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 16,
                   ),
                   TextFormField(
-                    // controller: _emailTEController,
+                    controller: _emailTEController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       hintText: 'Email',
@@ -43,7 +53,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 12,
                   ),
                   TextFormField(
-                    // controller: _emailTEController,
+                    controller: _firstNameTEController,
                     keyboardType: TextInputType.text,
                     decoration: const InputDecoration(
                       hintText: 'First Name',
@@ -54,7 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 12,
                   ),
                   TextFormField(
-                    // controller: _emailTEController,
+                    controller: _lastNameTEController,
                     keyboardType: TextInputType.text,
                     decoration: const InputDecoration(
                       hintText: 'Last Name',
@@ -65,7 +75,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 12,
                   ),
                   TextFormField(
-                    // controller: _emailTEController,
+                    controller: _phoneTEController,
                     keyboardType: TextInputType.phone,
                     decoration: const InputDecoration(
                       hintText: 'Mobile',
@@ -76,7 +86,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 12,
                   ),
                   TextFormField(
-                    // controller: _passwordTEController,
+                    controller: _passwordTEController,
                     obscureText: true,
                     decoration: const InputDecoration(
                       hintText: 'Password',
@@ -125,5 +135,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+  @override
+  void dispose() {
+    _emailTEController.dispose();
+    _firstNameTEController.dispose();
+    _lastNameTEController.dispose();
+    _phoneTEController.dispose();
+    _passwordTEController.dispose();
+    super.dispose();
   }
 }

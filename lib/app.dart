@@ -25,7 +25,7 @@ class TaskManager extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColor.themeColor,
-            foregroundColor: Colors.white70,
+            foregroundColor: AppColor.buttonTExtColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             )
@@ -37,6 +37,7 @@ class TaskManager extends StatelessWidget {
             fontWeight: FontWeight.w700,
             color: AppColor.primaryTextColor,
           ),
+          bodySmall: TextStyle(color: AppColor.secondaryTextColor, fontSize: 16)
         )
       ),
     );
