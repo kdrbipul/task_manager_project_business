@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager_project/presentation/screens/pin_verification_screen.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:task_manager_project/presentation/screens/sign_in_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
 
-class EmailVerifyScreen extends StatefulWidget {
-  const EmailVerifyScreen({super.key});
+class PinVerifyScreen extends StatefulWidget {
+  const PinVerifyScreen({super.key});
 
   @override
-  State<EmailVerifyScreen> createState() => _EmailVerifyScreenState();
+  State<PinVerifyScreen> createState() => _PinVerifyScreenState();
 }
 
-class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
-  final TextEditingController _emailTEController = TextEditingController();
+class _PinVerifyScreenState extends State<PinVerifyScreen> {
+  final TextEditingController _pinTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -23,7 +24,6 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(24),
-              child: Form(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -31,7 +31,7 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                       height: 60,
                     ),
                     Text(
-                      'Your Email Address',
+                      'Pin Verification',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(
@@ -44,13 +44,26 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                     const SizedBox(
                       height: 16,
                     ),
-                    TextFormField(
-                      controller: _emailTEController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                        hintText: 'Email',
-                        labelText: 'Email',
+                    PinCodeTextField(
+                      controller: _pinTEController,
+                      length: 6,
+                      obscureText: false,
+                      animationType: AnimationType.fade,
+                      keyboardType: TextInputType.number,
+                      pinTheme: PinTheme(
+                        shape: PinCodeFieldShape.box,
+                        borderRadius: BorderRadius.circular(5),
+                        fieldHeight: 50,
+                        fieldWidth: 40,
+                        activeFillColor: Colors.white,
+                        inactiveFillColor: Colors.white,
+                        inactiveColor: AppColor.themeColor,
+                        selectedFillColor: Colors.white,
                       ),
+                      animationDuration: const Duration(milliseconds: 300),
+                      backgroundColor: Colors.transparent,
+                      enableActiveFill: true,
+                      appContext: context,
                     ),
                     const SizedBox(
                       height: 12,
@@ -58,15 +71,8 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const PinVerifyScreen(),
-                            ),
-                          );
-                        },
-                        child: const Icon(Icons.arrow_circle_right_outlined),
+                        onPressed: () {},
+                        child: const Text('Verify'),
                       ),
                     ),
                     const SizedBox(
@@ -85,7 +91,12 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SignInScreen(),
+                                ),
+                                (route) => false);
                           },
                           style: TextButton.styleFrom(
                             foregroundColor: AppColor.themeColor,
@@ -96,7 +107,7 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                     )
                   ],
                 ),
-              ),
+
             ),
           ),
         ),
@@ -106,7 +117,7 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
 
   @override
   void dispose() {
-    _emailTEController.dispose();
+    _pinTEController.dispose();
     super.dispose();
   }
 }
