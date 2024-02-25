@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager_project/presentation/screens/pin_verification_screen.dart';
+import 'package:task_manager_project/presentation/screens/sign_in_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
 
@@ -12,7 +12,8 @@ class SetPasswordScreen extends StatefulWidget {
 
 class _SetPasswordScreenState extends State<SetPasswordScreen> {
   final TextEditingController _passwordTEController = TextEditingController();
-  final TextEditingController _confirmPasswordTEController = TextEditingController();
+  final TextEditingController _confirmPasswordTEController =
+      TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -70,14 +71,7 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const PinVerifyScreen(),
-                            ),
-                          );
-                        },
+                        onPressed: () {},
                         child: const Icon(Icons.arrow_circle_right_outlined),
                       ),
                     ),
@@ -97,7 +91,12 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SignInScreen(),
+                                ),
+                                (route) => false);
                           },
                           style: TextButton.styleFrom(
                             foregroundColor: AppColor.themeColor,
