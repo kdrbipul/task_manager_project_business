@@ -33,13 +33,27 @@ class SignInScreen extends StatelessWidget {
                   decoration: const InputDecoration(
                     hintText: 'Email',
                     labelText: 'Email',
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                    ),
                   ),
                 ),
+                const SizedBox(
+                  height: 12,
+                ),
+                TextFormField(
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    hintText: 'Password',
+                    labelText: 'Password',
+                  ),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: const Icon(Icons.arrow_circle_right_outlined),
+                    )),
               ],
             ),
           ),

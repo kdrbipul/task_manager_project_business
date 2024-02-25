@@ -6,10 +6,28 @@ class TaskManager extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Task Manager Project',
-      home: SplashScreen(),
+      home: const SplashScreen(),
+      theme: ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+            fillColor: Colors.white,
+            filled: true,
+            contentPadding:
+            const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(10),
+            ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xff21BF73),
+            foregroundColor: Colors.white70,
+          )
+        )
+      ),
     );
   }
 }
