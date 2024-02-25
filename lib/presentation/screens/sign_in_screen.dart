@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_project/presentation/screens/sign_up_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
 
@@ -9,13 +10,10 @@ class SignInScreen extends StatefulWidget {
   State<SignInScreen> createState() => _SignInScreenState();
 }
 
-
 class _SignInScreenState extends State<SignInScreen> {
-
   final TextEditingController _emailTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +31,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     const SizedBox(
                       height: 60,
                     ),
-                     Text(
+                    Text(
                       'Get Started With',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
@@ -96,7 +94,14 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const SignUpScreen(),
+                              ),
+                            );
+                          },
                           style: TextButton.styleFrom(
                             foregroundColor: AppColor.themeColor,
                           ),
@@ -113,6 +118,7 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
   }
+
   @override
   void dispose() {
     _passwordTEController.dispose();
