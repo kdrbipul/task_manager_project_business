@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager_project/presentation/screens/set_password_screen.dart';
-import 'package:task_manager_project/presentation/screens/sign_in_screen.dart';
+import 'package:task_manager_project/presentation/screens/pin_verification_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
-import 'package:task_manager_project/presentation/widgets/pin_code_field.dart';
 
-class PinVerifyScreen extends StatefulWidget {
-  const PinVerifyScreen({super.key});
+class SetPasswordScreen extends StatefulWidget {
+  const SetPasswordScreen({super.key});
 
   @override
-  State<PinVerifyScreen> createState() => _PinVerifyScreenState();
+  State<SetPasswordScreen> createState() => _SetPasswordScreenState();
 }
 
-class _PinVerifyScreenState extends State<PinVerifyScreen> {
-  final TextEditingController _pinTEController = TextEditingController();
+class _SetPasswordScreenState extends State<SetPasswordScreen> {
+  final TextEditingController _passwordTEController = TextEditingController();
+  final TextEditingController _confirmPasswordTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -25,6 +24,7 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(24),
+              child: Form(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -32,20 +32,38 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
                       height: 60,
                     ),
                     Text(
-                      'Pin Verification',
+                      'Set Password',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     Text(
-                      'A 6 digit verification pin will send to your email address',
+                      'Minimum length password 8 character with Letter and Number combination',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
-                    PinCodeField(pinTEController: _pinTEController),
+                    TextFormField(
+                      controller: _passwordTEController,
+                      keyboardType: TextInputType.text,
+                      decoration: const InputDecoration(
+                        hintText: 'Password',
+                        labelText: 'Password',
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    TextFormField(
+                      controller: _confirmPasswordTEController,
+                      keyboardType: TextInputType.text,
+                      decoration: const InputDecoration(
+                        hintText: 'Confirm Password',
+                        labelText: 'Confirm Password',
+                      ),
+                    ),
                     const SizedBox(
                       height: 12,
                     ),
@@ -54,13 +72,13 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SetPasswordScreen(),
-                          ),
-                        );
-                      },
-                        child: const Text('Verify'),
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const PinVerifyScreen(),
+                            ),
+                          );
+                        },
+                        child: const Icon(Icons.arrow_circle_right_outlined),
                       ),
                     ),
                     const SizedBox(
@@ -79,12 +97,7 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const SignInScreen(),
-                                ),
-                                (route) => false);
+                            Navigator.pop(context);
                           },
                           style: TextButton.styleFrom(
                             foregroundColor: AppColor.themeColor,
@@ -95,7 +108,7 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
                     )
                   ],
                 ),
-
+              ),
             ),
           ),
         ),
@@ -105,9 +118,8 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
 
   @override
   void dispose() {
-    _pinTEController.dispose();
+    _passwordTEController.dispose();
+    _confirmPasswordTEController.dispose();
     super.dispose();
   }
 }
-
-
