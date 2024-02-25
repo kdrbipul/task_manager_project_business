@@ -38,7 +38,8 @@ class TaskManager extends StatelessWidget {
             color: AppColor.primaryTextColor,
           ),
           bodySmall: TextStyle(color: AppColor.secondaryTextColor, fontSize: 16)
-        )
+        ),
+
       ),
     );
   }

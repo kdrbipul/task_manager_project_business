@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:task_manager_project/presentation/screens/sign_in_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
+import 'package:task_manager_project/presentation/widgets/pin_code_field.dart';
 
 class PinVerifyScreen extends StatefulWidget {
   const PinVerifyScreen({super.key});
@@ -44,27 +44,7 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
                     const SizedBox(
                       height: 16,
                     ),
-                    PinCodeTextField(
-                      controller: _pinTEController,
-                      length: 6,
-                      obscureText: false,
-                      animationType: AnimationType.fade,
-                      keyboardType: TextInputType.number,
-                      pinTheme: PinTheme(
-                        shape: PinCodeFieldShape.box,
-                        borderRadius: BorderRadius.circular(5),
-                        fieldHeight: 50,
-                        fieldWidth: 40,
-                        activeFillColor: Colors.white,
-                        inactiveFillColor: Colors.white,
-                        inactiveColor: AppColor.themeColor,
-                        selectedFillColor: Colors.white,
-                      ),
-                      animationDuration: const Duration(milliseconds: 300),
-                      backgroundColor: Colors.transparent,
-                      enableActiveFill: true,
-                      appContext: context,
-                    ),
+                    PinCodeField(pinTEController: _pinTEController),
                     const SizedBox(
                       height: 12,
                     ),
@@ -121,3 +101,5 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
     super.dispose();
   }
 }
+
+
