@@ -47,6 +47,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     decoration: const InputDecoration(
                       hintText: 'Email',
                       labelText: 'Email',
+                      prefixIcon: Icon(Icons.email_outlined, color: Colors.grey,),
                     ),
                   ),
                   const SizedBox(
@@ -58,6 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     decoration: const InputDecoration(
                       hintText: 'First Name',
                       labelText: 'First Name',
+                      prefixIcon: Icon(Icons.person, color: Colors.grey,)
                     ),
                   ),
                   const SizedBox(
@@ -69,6 +71,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     decoration: const InputDecoration(
                       hintText: 'Last Name',
                       labelText: 'Last Name',
+                        prefixIcon: Icon(Icons.person, color: Colors.grey,),
                     ),
                   ),
                   const SizedBox(
@@ -80,6 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     decoration: const InputDecoration(
                       hintText: 'Mobile',
                       labelText: 'Mobile',
+                      prefixIcon: Icon(Icons.mobile_friendly_outlined, color: Colors.grey,)
                     ),
                   ),
                   const SizedBox(
@@ -91,6 +95,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     decoration: InputDecoration(
                       hintText: 'Password',
                       labelText: 'Password',
+                      prefixIcon: const Icon(Icons.lock_outline, color: Colors.grey,),
                       suffixIcon: togglePassword(),
                     ),
                   ),

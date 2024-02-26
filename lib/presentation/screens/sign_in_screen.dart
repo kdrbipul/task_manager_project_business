@@ -46,7 +46,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     decoration: const InputDecoration(
                       hintText: 'Email',
                       labelText: 'Email',
+                      prefixIcon: Icon(Icons.email_outlined, color: Colors.grey,)
                     ),
+
                   ),
                   const SizedBox(
                     height: 12,
@@ -57,6 +59,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     decoration: InputDecoration(
                       hintText: 'Password',
                       labelText: 'Password',
+                      prefixIcon: const Icon(Icons.lock_outline, color: Colors.grey,),
                       suffixIcon: togglePassword(),
                     ),
                   ),
