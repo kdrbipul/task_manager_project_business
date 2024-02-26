@@ -39,6 +39,14 @@ class TaskManager extends StatelessWidget {
           ),
           bodySmall: TextStyle(color: AppColor.secondaryTextColor, fontSize: 16)
         ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            textStyle: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            )
+          )
+        )
 
       ),
     );
