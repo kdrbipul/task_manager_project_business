@@ -10,7 +10,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-
   final TextEditingController _emailTEController = TextEditingController();
   final TextEditingController _firstNameTEController = TextEditingController();
   final TextEditingController _lastNameTEController = TextEditingController();
@@ -18,6 +17,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _passwordTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  bool _passwordObsecured = true;
 
   @override
   Widget build(BuildContext context) {
@@ -87,10 +87,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   TextFormField(
                     controller: _passwordTEController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
+                    obscureText: _passwordObsecured,
+                    decoration: InputDecoration(
                       hintText: 'Password',
                       labelText: 'Password',
+                      suffixIcon: togglePassword(),
                     ),
                   ),
                   const SizedBox(
@@ -136,6 +137,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
+
+  IconButton togglePassword() {
+    return IconButton(
+      onPressed: () {
+        _passwordObsecured = !_passwordObsecured;
+        setState(() {});
+      },
+      icon: Icon(_passwordObsecured ? Icons.visibility_off : Icons.visibility),
+      color: Colors.grey,
+    );
+  }
+
   @override
   void dispose() {
     _emailTEController.dispose();
