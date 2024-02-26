@@ -25,7 +25,6 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(24),
-              child: Form(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -107,7 +106,6 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                     )
                   ],
                 ),
-              ),
             ),
           ),
         ),

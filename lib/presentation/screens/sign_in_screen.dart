@@ -25,7 +25,6 @@ class _SignInScreenState extends State<SignInScreen> {
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(24),
-              child: Form(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -114,7 +113,6 @@ class _SignInScreenState extends State<SignInScreen> {
                     )
                   ],
                 ),
-              ),
             ),
           ),
         ),

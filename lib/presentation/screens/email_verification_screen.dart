@@ -23,7 +23,6 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(24),
-              child: Form(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -96,7 +95,6 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                     )
                   ],
                 ),
-              ),
             ),
           ),
         ),

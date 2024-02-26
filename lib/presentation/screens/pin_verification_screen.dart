@@ -95,7 +95,6 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
                     )
                   ],
                 ),
-
             ),
           ),
         ),
