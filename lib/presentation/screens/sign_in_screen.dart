@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager_project/presentation/screens/email_verification_screen.dart';
+import 'package:task_manager_project/presentation/screens/main_bottom_nav_screen.dart';
 import 'package:task_manager_project/presentation/screens/sign_up_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
@@ -69,7 +70,14 @@ class _SignInScreenState extends State<SignInScreen> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MainBottomNavScreen(),
+                            ),
+                            (route) => false);
+                      },
                       child: const Icon(Icons.arrow_circle_right_outlined),
                     ),
                   ),
