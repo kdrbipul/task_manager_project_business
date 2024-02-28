@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager_project/presentation/screens/sign_in_screen.dart';
+import 'package:task_manager_project/presentation/screens/auth/set_password_screen.dart';
+import 'package:task_manager_project/presentation/screens/auth/sign_in_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
+import 'package:task_manager_project/presentation/widgets/pin_code_field.dart';
 
-class SetPasswordScreen extends StatefulWidget {
-  const SetPasswordScreen({super.key});
+class PinVerifyScreen extends StatefulWidget {
+  const PinVerifyScreen({super.key});
 
   @override
-  State<SetPasswordScreen> createState() => _SetPasswordScreenState();
+  State<PinVerifyScreen> createState() => _PinVerifyScreenState();
 }
 
-class _SetPasswordScreenState extends State<SetPasswordScreen> {
-  final TextEditingController _passwordTEController = TextEditingController();
-  final TextEditingController _confirmPasswordTEController =
-      TextEditingController();
+class _PinVerifyScreenState extends State<PinVerifyScreen> {
+  final TextEditingController _pinTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -32,46 +32,35 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                       height: 60,
                     ),
                     Text(
-                      'Set Password',
+                      'Pin Verification',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     Text(
-                      'Minimum length password 8 character with Letter and Number combination',
+                      'A 6 digit verification pin will send to your email address',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
-                    TextFormField(
-                      controller: _passwordTEController,
-                      keyboardType: TextInputType.text,
-                      decoration: const InputDecoration(
-                        hintText: 'Password',
-                        labelText: 'Password',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    TextFormField(
-                      controller: _confirmPasswordTEController,
-                      keyboardType: TextInputType.text,
-                      decoration: const InputDecoration(
-                        hintText: 'Confirm Password',
-                        labelText: 'Confirm Password',
-                      ),
-                    ),
+                    PinCodeField(pinTEController: _pinTEController),
                     const SizedBox(
                       height: 12,
                     ),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {},
-                        child: const Icon(Icons.arrow_circle_right_outlined),
+                        onPressed: () {
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SetPasswordScreen(),
+                          ),
+                        );
+                      },
+                        child: const Text('Verify'),
                       ),
                     ),
                     const SizedBox(
@@ -115,8 +104,9 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
 
   @override
   void dispose() {
-    _passwordTEController.dispose();
-    _confirmPasswordTEController.dispose();
+    _pinTEController.dispose();
     super.dispose();
   }
 }
+
+

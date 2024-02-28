@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager_project/presentation/screens/set_password_screen.dart';
-import 'package:task_manager_project/presentation/screens/sign_in_screen.dart';
+import 'package:task_manager_project/presentation/screens/auth/pin_verification_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
-import 'package:task_manager_project/presentation/widgets/pin_code_field.dart';
 
-class PinVerifyScreen extends StatefulWidget {
-  const PinVerifyScreen({super.key});
+class EmailVerifyScreen extends StatefulWidget {
+  const EmailVerifyScreen({super.key});
 
   @override
-  State<PinVerifyScreen> createState() => _PinVerifyScreenState();
+  State<EmailVerifyScreen> createState() => _EmailVerifyScreenState();
 }
 
-class _PinVerifyScreenState extends State<PinVerifyScreen> {
-  final TextEditingController _pinTEController = TextEditingController();
+class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
+  final TextEditingController _emailTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -32,7 +30,7 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
                       height: 60,
                     ),
                     Text(
-                      'Pin Verification',
+                      'Your Email Address',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(
@@ -45,7 +43,14 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
                     const SizedBox(
                       height: 16,
                     ),
-                    PinCodeField(pinTEController: _pinTEController),
+                    TextFormField(
+                      controller: _emailTEController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: const InputDecoration(
+                        hintText: 'Email',
+                        labelText: 'Email',
+                      ),
+                    ),
                     const SizedBox(
                       height: 12,
                     ),
@@ -54,13 +59,13 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SetPasswordScreen(),
-                          ),
-                        );
-                      },
-                        child: const Text('Verify'),
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const PinVerifyScreen(),
+                            ),
+                          );
+                        },
+                        child: const Icon(Icons.arrow_circle_right_outlined),
                       ),
                     ),
                     const SizedBox(
@@ -79,12 +84,7 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const SignInScreen(),
-                                ),
-                                (route) => false);
+                            Navigator.pop(context);
                           },
                           style: TextButton.styleFrom(
                             foregroundColor: AppColor.themeColor,
@@ -104,9 +104,7 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
 
   @override
   void dispose() {
-    _pinTEController.dispose();
+    _emailTEController.dispose();
     super.dispose();
   }
 }
-
-
