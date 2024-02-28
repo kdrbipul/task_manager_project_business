@@ -46,6 +46,11 @@ class TaskManager extends StatelessWidget {
             ),
           ),
         ),
+        chipTheme: ChipThemeData(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          )
+        ),
       ),
     );
   }
