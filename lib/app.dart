@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager_project/presentation/screens/spalsh_screen.dart';
+import 'package:task_manager_project/presentation/screens/splash_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 
 class TaskManager extends StatelessWidget {
@@ -47,6 +47,14 @@ class TaskManager extends StatelessWidget {
           ),
         ),
         chipTheme: ChipThemeData(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          )
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: AppColor.themeColor,
+          foregroundColor: Colors.white,
+          elevation: 3,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           )
