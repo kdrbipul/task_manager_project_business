@@ -36,7 +36,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   Text(
                     'Join With Us',
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 24),
                   ),
                   const SizedBox(
                     height: 16,

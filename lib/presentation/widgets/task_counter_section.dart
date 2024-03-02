@@ -3,7 +3,7 @@ import 'package:task_manager_project/presentation/screens/task_counter_card.dart
 
 Widget get taskCounterSection {
   return SizedBox(
-    height: 90,
+    height: 100,
     child: ListView.separated(
       scrollDirection: Axis.horizontal,
       itemCount: 4,

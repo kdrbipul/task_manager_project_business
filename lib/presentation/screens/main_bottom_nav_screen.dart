@@ -30,6 +30,7 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
         currentIndex: _currentSelectedIndex,
         selectedItemColor: AppColor.themeColor,
         unselectedItemColor: AppColor.secondaryTextColor,
+        backgroundColor: AppColor.themeColor,
         showUnselectedLabels: true,
         onTap: (index){
           _currentSelectedIndex = index;

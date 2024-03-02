@@ -77,6 +77,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   ),
                   TextFormField(
                     controller: _emailTEController,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       hintText: 'Email',
                       labelText: 'Email',
@@ -86,6 +87,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     height: 8,
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.text,
                     controller: _firstNameTEController,
                     decoration: const InputDecoration(
                       hintText: 'First Name',
@@ -96,6 +98,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     height: 8,
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.text,
                     controller: _lastNameTEController,
                     decoration: const InputDecoration(
                       hintText: 'Last Name',
@@ -106,6 +109,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     height: 8,
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.phone,
                     controller: _phoneTEController,
                     decoration: const InputDecoration(
                       hintText: 'Mobile',
