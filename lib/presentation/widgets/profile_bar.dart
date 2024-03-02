@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_project/app.dart';
+import 'package:task_manager_project/presentation/screens/auth/sign_in_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 
-PreferredSizeWidget get profileAppBar{
+PreferredSizeWidget get profileAppBar {
   return AppBar(
+    automaticallyImplyLeading: false,
     backgroundColor: AppColor.themeColor,
     title: Row(
       children: [
@@ -31,8 +34,17 @@ PreferredSizeWidget get profileAppBar{
         ),
         IconButton(
           color: Colors.white,
-          onPressed: () {},
-          icon: const Icon(Icons.logout_outlined,),
+          onPressed: () {
+            Navigator.pushAndRemoveUntil(
+                TaskManager.navigatorKey.currentState!.context,
+                MaterialPageRoute(
+                  builder: (contex) => const SignInScreen(),
+                ),
+                (route) => false);
+          },
+          icon: const Icon(
+            Icons.logout_outlined,
+          ),
         ),
       ],
     ),

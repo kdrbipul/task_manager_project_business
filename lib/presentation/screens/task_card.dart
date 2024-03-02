@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_project/presentation/utils/app_color.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard({
@@ -25,7 +26,8 @@ class TaskCard extends StatelessWidget {
                 const Spacer(),
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(Icons.edit),
+                  icon: const Icon(Icons.edit,
+                  color: AppColor.themeColor,),
                 ),
                 IconButton(
                   onPressed: () {},

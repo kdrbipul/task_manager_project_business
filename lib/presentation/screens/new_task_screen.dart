@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_project/presentation/screens/add_new_task_screen.dart';
 import 'package:task_manager_project/presentation/screens/task_card.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
 import 'package:task_manager_project/presentation/widgets/profile_bar.dart';
@@ -22,7 +23,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
             taskCounterSection,
             Expanded(
               child: ListView.builder(
-                itemCount: 4,
+                itemCount: 5,
                 itemBuilder: (context, index) {
                   return const TaskCard();
                 },
@@ -32,13 +33,18 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
-        child: const Icon(Icons.add,),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AddNewTaskScreen(),
+            ),
+          );
+        },
+        child: const Icon(
+          Icons.add,
+        ),
       ),
     );
   }
-
-
 }
-
-
