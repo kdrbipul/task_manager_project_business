@@ -12,9 +12,9 @@ class SetPasswordScreen extends StatefulWidget {
 
 class _SetPasswordScreenState extends State<SetPasswordScreen> {
   final TextEditingController _passwordTEController = TextEditingController();
-  final TextEditingController _confirmPasswordTEController =
-      TextEditingController();
+  final TextEditingController _confirmPasswordTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _isObsecureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -47,21 +47,23 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                     ),
                     TextFormField(
                       controller: _passwordTEController,
-                      keyboardType: TextInputType.text,
-                      decoration: const InputDecoration(
+                      obscureText: _isObsecureText,
+                      decoration:  InputDecoration(
                         hintText: 'Password',
                         labelText: 'Password',
-                      ),
+                        suffixIcon: toggleButton(),
                     ),
-                    const SizedBox(
+                  ),
+                  const SizedBox(
                       height: 12,
                     ),
                     TextFormField(
                       controller: _confirmPasswordTEController,
-                      keyboardType: TextInputType.text,
-                      decoration: const InputDecoration(
+                      obscureText: _isObsecureText,
+                      decoration:  InputDecoration(
                         hintText: 'Confirm Password',
                         labelText: 'Confirm Password',
+                        suffixIcon: toggleButton(),
                       ),
                     ),
                     const SizedBox(
@@ -110,6 +112,19 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  IconButton toggleButton() {
+    return IconButton(
+      onPressed: () {
+        _isObsecureText = !_isObsecureText;
+        setState(() {});
+      },
+      icon: Icon(
+        _isObsecureText ? Icons.visibility_off : Icons.visibility,
+      ),
+      color: Colors.grey,
     );
   }
 

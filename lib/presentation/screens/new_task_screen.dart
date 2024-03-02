@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager_project/presentation/screens/task_card.dart';
-import 'package:task_manager_project/presentation/screens/task_counter_card.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
 import 'package:task_manager_project/presentation/widgets/profile_bar.dart';
+import 'package:task_manager_project/presentation/widgets/task_counter_section.dart';
 
 class NewTaskScreen extends StatefulWidget {
   const NewTaskScreen({super.key});
@@ -31,29 +31,14 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget get taskCounterSection {
-    return SizedBox(
-      height: 90,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: 4,
-        itemBuilder: (context, index) {
-          return const TaskScreenCounterCard(
-            amount: 12,
-            title: 'New',
-          );
-        },
-        separatorBuilder: (_, __) {
-          return const SizedBox(
-            width: 8,
-          );
-        },
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        child: const Icon(Icons.add,),
       ),
     );
   }
+
+
 }
 
 
