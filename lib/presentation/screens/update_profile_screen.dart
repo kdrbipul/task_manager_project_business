@@ -129,7 +129,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     ),
                   ),
                   const SizedBox(
-                    height: 16,
+                    height: 32,
                   ),
                   SizedBox(
                     width: double.infinity,

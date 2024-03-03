@@ -50,7 +50,8 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                 ),
                 TextFormField(
                   controller: _descriptionTEController,
-                  maxLines: 6,
+                  maxLength: 250,
+                  // maxLines: 6,
                   decoration: const InputDecoration(
                     hintText: 'Description',
                     labelText: 'Description',
