@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_project/data/models/response_object.dart';
+import 'package:task_manager_project/data/services/network_caller.dart';
+import 'package:task_manager_project/data/utility/url.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
+import 'package:task_manager_project/presentation/widgets/sncakbar_message.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -18,6 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool _passwordObsecured = true;
+  bool _isRegistrationInProgress = false;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +54,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       labelText: 'Email',
                       prefixIcon: Icon(Icons.email_outlined, color: Colors.grey,),
                     ),
+                    validator: (String? value){
+                      if (value?.trim().isEmpty ?? true){
+                        return 'Enter your valid email address';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(
                     height: 12,
@@ -61,6 +72,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       labelText: 'First Name',
                       prefixIcon: Icon(Icons.person, color: Colors.grey,)
                     ),
+                    validator: (String? value){
+                      if (value?.trim().isEmpty ?? true){
+                        return 'Enter your first name';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(
                     height: 12,
@@ -73,6 +90,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       labelText: 'Last Name',
                         prefixIcon: Icon(Icons.person, color: Colors.grey,),
                     ),
+                    validator: (String? value){
+                      if (value?.trim().isEmpty ?? true){
+                        return 'Enter your last name';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(
                     height: 12,
@@ -85,6 +108,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       labelText: 'Mobile',
                       prefixIcon: Icon(Icons.mobile_friendly_outlined, color: Colors.grey,)
                     ),
+                    validator: (String? value){
+                      if (value?.trim().isEmpty ?? true){
+                        return 'Enter your valid phone number';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(
                     height: 12,
@@ -98,15 +127,55 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       prefixIcon: const Icon(Icons.lock_outline, color: Colors.grey,),
                       suffixIcon: togglePassword(),
                     ),
+                    validator: (String? value){
+                      if (value?.trim().isEmpty ?? true){
+                        return 'Enter your password';
+                      }
+                      if(value!.length <= 6){
+                        return 'Password should more than 6 letters';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(
                     height: 38,
                   ),
                   SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Icon(Icons.arrow_circle_right_outlined),
+                    child: Visibility(
+                      visible: _isRegistrationInProgress == false,
+                      replacement: const Center(child: CircularProgressIndicator(),),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            _isRegistrationInProgress = true;
+                            setState(() {});
+                            Map<String, dynamic> inputParams = {
+                              "email": _emailTEController.text.trim(),
+                              "firstName": _firstNameTEController.text.trim(),
+                              "lastName": _lastNameTEController.text.trim(),
+                              "mobile": _phoneTEController.text.trim(),
+                              "password": _passwordTEController.text,
+                            };
+                            final ResponseObject response =
+                                await NetworkCaller.postRequest(
+                                    Urls.registration, inputParams);
+                            _isRegistrationInProgress = false;
+                            setState(() {});
+                            if (response.isSuccess) {
+                              if (mounted) {
+                                showSnackBarMessage(context, 'Registration Success! Please Log in');
+                                Navigator.pop(context);
+                              }
+                            } else {
+                              if (mounted) {
+                                showSnackBarMessage(context, 'Registration failed! Try again', true);
+                              }
+                            }
+                          }
+                        },
+                        child: const Icon(Icons.arrow_circle_right_outlined),
+                      ),
                     ),
                   ),
                   const SizedBox(
