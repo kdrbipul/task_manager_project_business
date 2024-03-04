@@ -4,7 +4,7 @@ import 'package:task_manager_project/data/services/network_caller.dart';
 import 'package:task_manager_project/data/utility/url.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
-import 'package:task_manager_project/presentation/widgets/sncakbar_message.dart';
+import 'package:task_manager_project/presentation/widgets/snackbar_message.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -146,32 +146,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       visible: _isRegistrationInProgress == false,
                       replacement: const Center(child: CircularProgressIndicator(),),
                       child: ElevatedButton(
-                        onPressed: () async {
+                        onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            _isRegistrationInProgress = true;
-                            setState(() {});
-                            Map<String, dynamic> inputParams = {
-                              "email": _emailTEController.text.trim(),
-                              "firstName": _firstNameTEController.text.trim(),
-                              "lastName": _lastNameTEController.text.trim(),
-                              "mobile": _phoneTEController.text.trim(),
-                              "password": _passwordTEController.text,
-                            };
-                            final ResponseObject response =
-                                await NetworkCaller.postRequest(
-                                    Urls.registration, inputParams);
-                            _isRegistrationInProgress = false;
-                            setState(() {});
-                            if (response.isSuccess) {
-                              if (mounted) {
-                                showSnackBarMessage(context, 'Registration Success! Please Log in');
-                                Navigator.pop(context);
-                              }
-                            } else {
-                              if (mounted) {
-                                showSnackBarMessage(context, 'Registration failed! Try again', true);
-                              }
-                            }
+                            _signUp();
                           }
                         },
                         child: const Icon(Icons.arrow_circle_right_outlined),
@@ -210,6 +187,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+
+  Future<void> _signUp() async {
+    _isRegistrationInProgress = true;
+    setState(() {});
+    Map<String, dynamic> inputParams = {
+      "email": _emailTEController.text.trim(),
+      "firstName": _firstNameTEController.text.trim(),
+      "lastName": _lastNameTEController.text.trim(),
+      "mobile": _phoneTEController.text.trim(),
+      "password": _passwordTEController.text,
+    };
+
+    final ResponseObject response =
+        await NetworkCaller.postRequest(Urls.registration, inputParams);
+
+    _isRegistrationInProgress = false;
+    setState(() {});
+
+    if (response.isSuccess) {
+      if (mounted) {
+        showSnackBarMessage(context, 'Registration success! Please login.');
+        Navigator.pop(context);
+      }
+    } else {
+      if (mounted) {
+        showSnackBarMessage(context, 'Registration failed! Try again.', true);
+      }
+    }
   }
 
   IconButton togglePassword() {

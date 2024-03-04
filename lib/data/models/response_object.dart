@@ -5,8 +5,8 @@ class ResponseObject {
   final String? errorMessage;
 
   ResponseObject(
-      {required this.statusCode,
-      required this.responseBody,
-      this.errorMessage = '',
-        required this.isSuccess,});
+      {required this.isSuccess,
+        required this.statusCode,
+        required this.responseBody,
+        this.errorMessage = ''});
 }
