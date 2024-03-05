@@ -219,6 +219,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
+
+
   IconButton togglePassword() {
     return IconButton(
       onPressed: () {

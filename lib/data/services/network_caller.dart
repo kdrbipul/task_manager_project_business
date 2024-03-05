@@ -4,6 +4,8 @@ import 'dart:developer';
 import 'package:http/http.dart';
 import 'package:task_manager_project/data/models/response_object.dart';
 
+// get request code start here
+
 class NetworkCaller {
   static Future<ResponseObject> getRequest(String url) async {
     try {
@@ -31,6 +33,9 @@ class NetworkCaller {
           errorMessage: e.toString());
     }
   }
+  // get request end here
+
+  // post request code start here
 
   static Future<ResponseObject> postRequest(
       String url, Map<String, dynamic> body) async {
@@ -71,4 +76,6 @@ class NetworkCaller {
           errorMessage: e.toString());
     }
   }
+
+//   post request code end here
 }
