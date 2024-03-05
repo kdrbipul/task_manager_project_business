@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_project/data/models/response_object.dart';
+import 'package:task_manager_project/data/services/network_caller.dart';
+import 'package:task_manager_project/data/utility/url.dart';
 import 'package:task_manager_project/presentation/screens/auth/email_verification_screen.dart';
 import 'package:task_manager_project/presentation/screens/main_bottom_nav_screen.dart';
 import 'package:task_manager_project/presentation/screens/auth/sign_up_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
+import 'package:task_manager_project/presentation/widgets/snackbar_message.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -18,6 +22,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool _passwordObsecured = true;
+  bool _loginInProgress = false;
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +50,17 @@ class _SignInScreenState extends State<SignInScreen> {
                     controller: _emailTEController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
-                      hintText: 'Email',
+                      hintText: 'example@gmail.com',
                       labelText: 'Email',
                       prefixIcon: Icon(Icons.email_outlined, color: Colors.grey,)
                     ),
-
+                    validator: (String? value){
+                      if(value?.trim().isEmpty ?? true){
+                        return 'Enter your email address';
+                      }
+                      return null;
+                    }
+                    ,
                   ),
                   const SizedBox(
                     height: 12,
@@ -63,22 +74,30 @@ class _SignInScreenState extends State<SignInScreen> {
                       prefixIcon: const Icon(Icons.lock_outline, color: Colors.grey,),
                       suffixIcon: togglePassword(),
                     ),
+                    validator: (String? value){
+                      if(value?.trim().isEmpty ?? true){
+                        return 'Enter your password';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(
                     height: 38,
                   ),
                   SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MainBottomNavScreen(),
-                            ),
-                            (route) => false);
-                      },
-                      child: const Icon(Icons.arrow_circle_right_outlined),
+                    child: Visibility(
+                      visible: _loginInProgress == false,
+                      replacement: const Center(child: CircularProgressIndicator(),),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if(_formKey.currentState!.validate()){
+                            _login();
+                          }
+
+                        },
+                        child: const Icon(Icons.arrow_circle_right_outlined),
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -137,6 +156,35 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _login() async {
+    _loginInProgress = true;
+    setState(() {});
+    Map<String, dynamic> inputParams = {
+      "email": _emailTEController.text.trim(),
+      "password": _passwordTEController.text,
+    };
+    final ResponseObject response =
+        await NetworkCaller.postRequest(Urls.login, inputParams);
+    _loginInProgress = false;
+    setState(() {});
+
+    if(response.isSuccess){
+      if(!mounted){
+        return;
+      }
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MainBottomNavScreen(),
+          ),
+              (route) => false);
+    }else{
+      if(mounted){
+        return showSnackBarMessage(context, 'Login Failed! Try again', true);
+      }
+    }
   }
 
   IconButton togglePassword() {
