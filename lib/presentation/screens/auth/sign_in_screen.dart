@@ -182,7 +182,7 @@ class _SignInScreenState extends State<SignInScreen> {
               (route) => false);
     }else{
       if(mounted){
-        return showSnackBarMessage(context, 'Login Failed! Try again', true);
+        return showSnackBarMessage(context, response.errorMessage ?? 'Login Failed! Try again');
       }
     }
   }
