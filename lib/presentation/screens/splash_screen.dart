@@ -17,10 +17,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _moveToSignIn();
+    _moveToNextPage();
   }
 
-  Future<void> _moveToSignIn() async {
+  Future<void> _moveToNextPage() async {
     await Future.delayed(
       const Duration(seconds: 3),
     );
