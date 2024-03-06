@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_project/data/models/login_response.dart';
 import 'package:task_manager_project/data/models/response_object.dart';
 import 'package:task_manager_project/data/services/network_caller.dart';
 import 'package:task_manager_project/data/utility/url.dart';
+import 'package:task_manager_project/presentation/controllers/auth_contorller.dart';
 import 'package:task_manager_project/presentation/screens/auth/email_verification_screen.dart';
 import 'package:task_manager_project/presentation/screens/main_bottom_nav_screen.dart';
 import 'package:task_manager_project/presentation/screens/auth/sign_up_screen.dart';
@@ -174,12 +176,19 @@ class _SignInScreenState extends State<SignInScreen> {
       if(!mounted){
         return;
       }
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const MainBottomNavScreen(),
-          ),
-              (route) => false);
+
+      LoginResponse loginResponse = LoginResponse.fromJson(response.responseBody);
+      // Save the data local cache
+      await AuthController.saveUserDate(loginResponse.userDate!);
+      await AuthController.saveUserToken(loginResponse.token!);
+      if(mounted) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MainBottomNavScreen(),
+            ),
+                (route) => false);
+      }
     }else{
       if(mounted){
         return showSnackBarMessage(context, response.errorMessage ?? 'Login Failed! Try again', true);
@@ -199,16 +208,7 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  /*Widget togglePasswrod() {
-    return IconButton(
-      onPressed: () {
-        _passwordObsecured = !_passwordObsecured;
-        setState(() {});
-      },
-      icon: Icon(_passwordObsecured ? Icons.visibility : Icons.visibility_off),
-      color: Colors.grey,
-    );
-  }*/
+
 
   @override
   void dispose() {
