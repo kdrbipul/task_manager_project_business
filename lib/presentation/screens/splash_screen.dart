@@ -25,10 +25,10 @@ class _SplashScreenState extends State<SplashScreen> {
       const Duration(seconds: 3),
     );
 
-    bool loginState = await AuthController.isUserLoggedIn();
+    bool isLoggedIn = await AuthController.isUserLoggedIn();
 
     if (mounted) {
-      if(loginState){
+      if(isLoggedIn){
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
