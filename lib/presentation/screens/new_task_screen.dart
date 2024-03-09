@@ -1,14 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager_project/data/models/count_by_status_wrapper.dart';
 import 'package:task_manager_project/data/services/network_caller.dart';
 import 'package:task_manager_project/data/utility/url.dart';
 import 'package:task_manager_project/presentation/screens/add_new_task_screen.dart';
 import 'package:task_manager_project/presentation/screens/task_card.dart';
+import 'package:task_manager_project/presentation/screens/task_counter_card.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
 import 'package:task_manager_project/presentation/widgets/profile_bar.dart';
 import 'package:task_manager_project/presentation/widgets/snackbar_message.dart';
-import 'package:task_manager_project/presentation/widgets/task_counter_section.dart';
 
 class NewTaskScreen extends StatefulWidget {
   const NewTaskScreen({super.key});
@@ -62,6 +61,32 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
         },
         child: const Icon(
           Icons.add,
+        ),
+      ),
+    );
+  }
+
+  Widget get taskCounterSection {
+    return SizedBox(
+      height: 110,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.separated(
+          itemCount: _countByStatusWrapper.listOfTaskByStatusData?.length ?? 0,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return TaskScreenCounterCard(
+              title: _countByStatusWrapper.listOfTaskByStatusData![index].sId ??
+                  '',
+              amount:
+              _countByStatusWrapper.listOfTaskByStatusData![index].sum ?? 0,
+            );
+          },
+          separatorBuilder: (_, __) {
+            return const SizedBox(
+              width: 8,
+            );
+          },
         ),
       ),
     );
