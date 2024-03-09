@@ -80,13 +80,17 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if(_formKey.currentState!.validate()){
-
-                      }
-                    },
-                    child: const Icon(Icons.arrow_circle_right_outlined),
+                  child: Visibility(
+                    visible: _isAddNewTaskInProgress == false,
+                    replacement: const Center(child: CircularProgressIndicator(),),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if(_formKey.currentState!.validate()){
+                          _addNewTask();
+                        }
+                      },
+                      child: const Icon(Icons.arrow_circle_right_outlined),
+                    ),
                   ),
                 ),
               ],
@@ -113,7 +117,12 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
     setState(() {});
 
     if(response.isSuccess){
-
+      _titleTEController.clear();
+      _descriptionTEController.clear();
+      if(mounted){
+        showSnackBarMessage(context, 'New task has been added');
+      }
+      // Navigator.pop(context);
     }else{
       if(mounted){
         showSnackBarMessage(context, response.errorMessage ?? 'Add new task failed', true);
