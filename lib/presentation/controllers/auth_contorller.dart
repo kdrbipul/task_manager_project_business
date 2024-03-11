@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager_project/data/models/user_data.dart';
 
 class AuthController {
-
   static String? accessToken;
   static UserData? userData;
 
@@ -18,10 +17,11 @@ class AuthController {
     );
     AuthController.userData = userData;
   }
-  static Future<UserData?> getUserData() async{
+
+  static Future<UserData?> getUserData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? result = sharedPreferences.getString('userData');
-    if(result == null){
+    if (result == null) {
       return null;
     }
     final user = UserData.fromJson(jsonDecode(result));
@@ -40,17 +40,17 @@ class AuthController {
     return sharedPreferences.getString('token');
   }
 
-  static Future<bool> isUserLoggedIn() async{
+  static Future<bool> isUserLoggedIn() async {
     final result = await getUserToken();
     accessToken = result;
     bool loginState = result != null;
-    if(loginState){
+    if (loginState) {
       await getUserData();
     }
     return loginState;
   }
 
-  static Future<void> clearUserData() async{
+  static Future<void> clearUserData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.clear();
   }
