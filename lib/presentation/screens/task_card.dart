@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_project/data/models/task_item.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 
 class TaskCard extends StatelessWidget {
-  const TaskCard({
-    super.key,
-  });
+  const TaskCard({super.key, required this.taskItem});
+
+  final TaskItem taskItem;
 
   @override
   Widget build(BuildContext context) {
@@ -15,19 +16,24 @@ class TaskCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Title will be here', style: TextStyle(fontWeight: FontWeight.bold),),
-            const Text('Description will be here'),
-            const Text('Date: 28-02-2024'),
+            Text(
+              taskItem.title ?? '',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(taskItem.description ?? ''),
+            Text('Date: ${taskItem.createdDate}'),
             Row(
               children: [
-                const Chip(
-                  label: Text('new'),
+                 Chip(
+                  label: Text(taskItem.status ?? ''),
                 ),
                 const Spacer(),
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(Icons.edit,
-                  color: AppColor.themeColor,),
+                  icon: const Icon(
+                    Icons.edit,
+                    color: AppColor.themeColor,
+                  ),
                 ),
                 IconButton(
                   onPressed: () {},

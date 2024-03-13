@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager_project/presentation/screens/task_card.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
 import 'package:task_manager_project/presentation/widgets/profile_bar.dart';
 
@@ -22,7 +21,7 @@ class _ProgressTaskScreenState extends State<ProgressTaskScreen> {
               child: ListView.builder(
                 itemCount: 6,
                 itemBuilder: (context, index) {
-                  return const TaskCard();
+                  // return const TaskCard();
                 },
               ),
             ),

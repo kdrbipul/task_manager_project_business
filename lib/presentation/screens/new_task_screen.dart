@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager_project/data/models/count_by_status_wrapper.dart';
+import 'package:task_manager_project/data/models/task_list_wrapper.dart';
 import 'package:task_manager_project/data/services/network_caller.dart';
 import 'package:task_manager_project/data/utility/url.dart';
 import 'package:task_manager_project/presentation/screens/add_new_task_screen.dart';
@@ -18,12 +19,15 @@ class NewTaskScreen extends StatefulWidget {
 
 class _NewTaskScreenState extends State<NewTaskScreen> {
   bool _getAllNewTaskStatusInProgress = false;
+  bool _getNewTaskListInProgress = false;
   CountByStatusWrapper _countByStatusWrapper = CountByStatusWrapper();
+  TaskListWrapper _newTaskListWrapper = TaskListWrapper();
 
   @override
   void initState() {
     super.initState();
     _getNewTaskStatus();
+    _getAllNewTaskList();
   }
 
   @override
@@ -40,11 +44,21 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                     child: LinearProgressIndicator()),
                 child: taskCounterSection),
             Expanded(
-              child: ListView.builder(
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return const TaskCard();
-                },
+              child: Visibility(
+                visible: _getNewTaskListInProgress == false,
+                replacement: const Center(child: CircularProgressIndicator(),),
+                child: RefreshIndicator(
+                  onRefresh: () async{
+                    _getAllNewTaskList();
+                    _getNewTaskStatus();
+                  },
+                  child: ListView.builder(
+                    itemCount: _newTaskListWrapper.taskList?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      return TaskCard(taskItem: _newTaskListWrapper.taskList![index]);
+                    },
+                  ),
+                ),
               ),
             ),
           ],
@@ -112,6 +126,26 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
             context,
             response.errorMessage ??
                 'Get task count by status has been failed');
+      }
+    }
+  }
+
+  Future<void> _getAllNewTaskList() async{
+    _getNewTaskListInProgress = true;
+    setState(() {});
+    final response = await NetworkCaller.getRequest(Urls.newTaskList);
+    if(response.isSuccess){
+      _newTaskListWrapper = TaskListWrapper.fromJson(response.responseBody);
+      _getNewTaskListInProgress = false;
+      setState(() {});
+    }else{
+      _getNewTaskListInProgress = false;
+      setState(() {});
+      if (mounted) {
+        showSnackBarMessage(
+            context,
+            response.errorMessage ??
+                'Get new task list has been failed');
       }
     }
   }
