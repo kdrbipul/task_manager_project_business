@@ -26,9 +26,13 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   @override
   void initState() {
     super.initState();
-    _getNewTaskStatus();
-    _getAllNewTaskList();
+    _getDataFromApi();
   }
+
+  void _getDataFromApi(){
+  _getNewTaskStatus();
+  _getAllNewTaskList();
+}
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +52,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                 visible: _getNewTaskListInProgress == false,
                 replacement: const Center(child: CircularProgressIndicator(),),
                 child: RefreshIndicator(
-                  onRefresh: () async{
-                    _getAllNewTaskList();
-                    _getNewTaskStatus();
-                  },
+                  onRefresh: () async => _getDataFromApi(),
                   child: ListView.builder(
                     itemCount: _newTaskListWrapper.taskList?.length ?? 0,
                     itemBuilder: (context, index) {
