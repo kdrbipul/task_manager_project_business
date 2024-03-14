@@ -21,6 +21,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   bool _getAllNewTaskStatusInProgress = false;
   bool _getNewTaskListInProgress = false;
   bool _deleteTaskInProgress = false;
+  bool _updateTaskStatusInProgress = false;
   CountByStatusWrapper _countByStatusWrapper = CountByStatusWrapper();
   TaskListWrapper _newTaskListWrapper = TaskListWrapper();
 
@@ -60,6 +61,9 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                       return TaskCard(taskItem: _newTaskListWrapper.taskList![index], 
                         onDelete: () { 
                         _deleteTaskById(_newTaskListWrapper.taskList![index].sId!);
+                        },
+                        onEdit: () {
+                          _showUpdateStatusDialog();
                         },);
                       
                     },
@@ -110,6 +114,25 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
         ),
       ),
     );
+  }
+
+
+  void _showUpdateStatusDialog(){
+    showDialog(context: context, builder: (context){
+      return  const AlertDialog(
+        title: Text('Select Status'),
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(title: Text('New'), trailing: Icon(Icons.check),),
+            ListTile(title: Text('Complete')),
+            ListTile(title: Text('Progress')),
+            ListTile(title: Text('Cancelled')),
+          ],
+        ),
+      );
+    });
   }
 
   Future<void> _getNewTaskStatus() async {
@@ -174,5 +197,11 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                 'Delete task has been failed');
       }
     }
+  }
+
+  Future<void> _updateTaskById(String id, String status) async{
+    _updateTaskStatusInProgress = false;
+    setState(() {});
+    // final response = await NetworkCaller.getRequest(Urls())
   }
 }

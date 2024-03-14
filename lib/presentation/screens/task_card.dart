@@ -7,12 +7,14 @@ class TaskCard extends StatelessWidget {
       {
         super.key,
         required this.taskItem,
-        required this.onDelete
+        required this.onDelete,
+        required this.onEdit
       }
       );
 
   final TaskItem taskItem;
   final VoidCallback onDelete;
+  final VoidCallback onEdit;
 
 
   @override
@@ -37,7 +39,7 @@ class TaskCard extends StatelessWidget {
                 ),
                 const Spacer(),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: onEdit,
                   icon: const Icon(
                     Icons.edit,
                     color: AppColor.themeColor,
