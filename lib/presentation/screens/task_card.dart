@@ -3,9 +3,17 @@ import 'package:task_manager_project/data/models/task_item.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 
 class TaskCard extends StatelessWidget {
-  const TaskCard({super.key, required this.taskItem});
+  const TaskCard(
+      {
+        super.key,
+        required this.taskItem,
+        required this.onDelete
+      }
+      );
 
   final TaskItem taskItem;
+  final VoidCallback onDelete;
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +44,7 @@ class TaskCard extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: onDelete,
                   icon: const Icon(
                     Icons.delete_outline,
                     color: Colors.red,
