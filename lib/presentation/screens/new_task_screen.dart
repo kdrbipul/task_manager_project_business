@@ -233,6 +233,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     if (response.isSuccess) {
       _getDataFromApi();
     } else {
+      _updateTaskStatusInProgress = false;
       setState(() {});
       if (mounted) {
         showSnackBarMessage(context,
