@@ -11,12 +11,12 @@ class TaskCard extends StatefulWidget {
       {
         super.key,
         required this.taskItem,
-        required this.onDelete,
+        required this.refreshList,
       }
       );
 
   final TaskItem taskItem;
-  final VoidCallback onDelete;
+  final VoidCallback refreshList;
 
   @override
   State<TaskCard> createState() => _TaskCardState();
@@ -24,6 +24,8 @@ class TaskCard extends StatefulWidget {
 
 class _TaskCardState extends State<TaskCard> {
   bool _updateTaskStatusInProgress = false;
+  bool _deleteTaskInProgress = false;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -58,11 +60,17 @@ class _TaskCardState extends State<TaskCard> {
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: widget.onDelete,
-                  icon: const Icon(
-                    Icons.delete_outline,
-                    color: Colors.red,
+                Visibility(
+                  visible: _deleteTaskInProgress == false,
+                  replacement: const CircularProgressIndicator(),
+                  child: IconButton(
+                    onPressed: (){
+                      _deleteTaskById(widget.taskItem.sId!);
+                    },
+                    icon: const Icon(
+                      Icons.delete_outline,
+                      color: Colors.red,
+                    ),
                   ),
                 ),
               ],
@@ -123,12 +131,30 @@ class _TaskCardState extends State<TaskCard> {
     _updateTaskStatusInProgress = false;
     if (response.isSuccess) {
       _updateTaskStatusInProgress = false;
-      // _getDataFromApi();
+      widget.refreshList();
     } else {
       setState(() {});
       if (mounted) {
         showSnackBarMessage(context,
             response.errorMessage ?? 'Update task status has been failed');
+      }
+    }
+  }
+
+
+  Future<void> _deleteTaskById(String id) async {
+    _deleteTaskInProgress = true;
+    setState(() {});
+
+    final response = await NetworkCaller.getRequest(Urls.deleteTask(id));
+    _deleteTaskInProgress = false;
+    if (response.isSuccess) {
+      widget.refreshList();
+    } else {
+      setState(() {});
+      if (mounted) {
+        showSnackBarMessage(
+            context, response.errorMessage ?? 'Delete task has been failed');
       }
     }
   }
