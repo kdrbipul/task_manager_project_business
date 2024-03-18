@@ -4,7 +4,7 @@ import 'package:task_manager_project/app.dart';
 
 void main() {
   runApp(DevicePreview(
-    enabled: true,
+    enabled: false,
     builder: (context) {
       return const TaskManager();
     }

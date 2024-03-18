@@ -68,10 +68,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                           _deleteTaskById(
                               _newTaskListWrapper.taskList![index].sId!);
                         },
-                        onEdit: () {
-                          _showUpdateStatusDialog(
-                              _newTaskListWrapper.taskList![index].sId!);
-                        },
+
                       );
                     },
                   ),
@@ -123,46 +120,6 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     );
   }
 
-  void _showUpdateStatusDialog(String id) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Select Status'),
-            content: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const ListTile(
-                  title: Text('New'),
-                  trailing: Icon(Icons.check),
-                ),
-                ListTile(
-                  title: const Text('Complete'),
-                  onTap: () {
-                    _updateTaskById(id, 'Complete');
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  title: const Text('Progress'),
-                  onTap: () {
-                    _updateTaskById(id, 'Progress');
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  title: const Text('Cancelled'),
-                  onTap: () {
-                    _updateTaskById(id, 'Cancelled');
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
-          );
-        });
-  }
 
   Future<void> _getNewTaskStatus() async {
     _getAllNewTaskStatusInProgress = false;
@@ -224,21 +181,4 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     }
   }
 
-  Future<void> _updateTaskById(String id, String status) async {
-    _updateTaskStatusInProgress = false;
-    setState(() {});
-    final response =
-        await NetworkCaller.getRequest(Urls.updateTaskStatus(id, status));
-    _updateTaskStatusInProgress = true;
-    if (response.isSuccess) {
-      _getDataFromApi();
-    } else {
-      _updateTaskStatusInProgress = false;
-      setState(() {});
-      if (mounted) {
-        showSnackBarMessage(context,
-            response.errorMessage ?? 'Update task status has been failed');
-      }
-    }
-  }
 }
