@@ -9,7 +9,7 @@ import 'package:task_manager_project/presentation/screens/main_bottom_nav_screen
 import 'package:task_manager_project/presentation/screens/auth/sign_up_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
-import 'package:task_manager_project/presentation/widgets/snackbar_message.dart';
+import 'package:task_manager_project/presentation/widgets/snac_kbar_message.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});

@@ -6,7 +6,7 @@ import 'package:task_manager_project/presentation/screens/task_card.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
 import 'package:task_manager_project/presentation/widgets/empty_list_widget.dart';
 import 'package:task_manager_project/presentation/widgets/profile_bar.dart';
-import 'package:task_manager_project/presentation/widgets/snackbar_message.dart';
+import 'package:task_manager_project/presentation/widgets/snac_kbar_message.dart';
 
 class CompleteTaskScreen extends StatefulWidget {
   const CompleteTaskScreen({super.key});

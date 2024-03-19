@@ -4,7 +4,7 @@ import 'package:task_manager_project/data/models/task_item.dart';
 import 'package:task_manager_project/data/services/network_caller.dart';
 import 'package:task_manager_project/data/utility/url.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
-import 'package:task_manager_project/presentation/widgets/snackbar_message.dart';
+import 'package:task_manager_project/presentation/widgets/snac_kbar_message.dart';
 
 class TaskCard extends StatefulWidget {
   const TaskCard(
