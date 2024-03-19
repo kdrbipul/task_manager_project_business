@@ -55,17 +55,27 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                 ),
                 child: RefreshIndicator(
                   onRefresh: () async => _getDataFromApi(),
-                  child: ListView.builder(
-                    itemCount: _newTaskListWrapper.taskList?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      return TaskCard(
-                        taskItem: _newTaskListWrapper.taskList![index],
-                         refreshList: () {
-                          _getDataFromApi();
-                      },
+                  child: Visibility(
+                    visible: _newTaskListWrapper.taskList?.isNotEmpty ?? false,
+                    replacement: const Center(
+                      child: Text(
+                        'Empty List',
+                        style:
+                        TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    child: ListView.builder(
+                      itemCount: _newTaskListWrapper.taskList?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        return TaskCard(
+                          taskItem: _newTaskListWrapper.taskList![index],
+                           refreshList: () {
+                            _getDataFromApi();
+                        },
 
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
