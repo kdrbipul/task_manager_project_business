@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_project/data/models/task_list_wrapper.dart';
+import 'package:task_manager_project/data/services/network_caller.dart';
+import 'package:task_manager_project/data/utility/url.dart';
 import 'package:task_manager_project/presentation/screens/task_card.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
 import 'package:task_manager_project/presentation/widgets/profile_bar.dart';
+import 'package:task_manager_project/presentation/widgets/snackbar_message.dart';
 
 class CompleteTaskScreen extends StatefulWidget {
   const CompleteTaskScreen({super.key});
@@ -11,6 +15,17 @@ class CompleteTaskScreen extends StatefulWidget {
 }
 
 class _CompleteTaskScreenState extends State<CompleteTaskScreen> {
+
+  bool _getAllCompletedTaskListInProgress = false;
+
+  TaskListWrapper _completedTaskListWrapper = TaskListWrapper();
+
+  @override
+  void initState() {
+    super.initState();
+    _getAllCompletedTaskList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,11 +34,20 @@ class _CompleteTaskScreenState extends State<CompleteTaskScreen> {
         child: Column(
           children: [
             Expanded(
-              child: ListView.builder(
-                itemCount: 6,
-                itemBuilder: (context, index) {
-                  // return const TaskCard();
-                },
+              child: Visibility(
+                visible: _getAllCompletedTaskListInProgress == false,
+                replacement: const Center(child: CircularProgressIndicator(),),
+                child: ListView.builder(
+                  itemCount: _completedTaskListWrapper.taskList?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    return TaskCard(
+                      taskItem: _completedTaskListWrapper.taskList![index],
+                      refreshList: () {
+                        _getAllCompletedTaskList();
+                      },
+                    );
+                  },
+                ),
               ),
             ),
           ],
@@ -31,6 +55,25 @@ class _CompleteTaskScreenState extends State<CompleteTaskScreen> {
       ),
 
     );
+  }
+
+
+  Future<void> _getAllCompletedTaskList() async {
+    _getAllCompletedTaskListInProgress = true;
+    setState(() {});
+    final response = await NetworkCaller.getRequest(Urls.completeTaskList);
+    if (response.isSuccess) {
+      _completedTaskListWrapper = TaskListWrapper.fromJson(response.responseBody);
+      _getAllCompletedTaskListInProgress = false;
+      setState(() {});
+    } else {
+      _getAllCompletedTaskListInProgress = false;
+      setState(() {});
+      if (mounted) {
+        showSnackBarMessage(context,
+            response.errorMessage ?? 'Get completed task list has been failed');
+      }
+    }
   }
 }
 
