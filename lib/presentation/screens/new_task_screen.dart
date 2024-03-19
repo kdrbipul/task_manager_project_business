@@ -7,6 +7,7 @@ import 'package:task_manager_project/presentation/screens/add_new_task_screen.da
 import 'package:task_manager_project/presentation/screens/task_card.dart';
 import 'package:task_manager_project/presentation/screens/task_counter_card.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
+import 'package:task_manager_project/presentation/widgets/empty_list_widget.dart';
 import 'package:task_manager_project/presentation/widgets/profile_bar.dart';
 import 'package:task_manager_project/presentation/widgets/snackbar_message.dart';
 
@@ -57,13 +58,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                   onRefresh: () async => _getDataFromApi(),
                   child: Visibility(
                     visible: _newTaskListWrapper.taskList?.isNotEmpty ?? false,
-                    replacement: const Center(
-                      child: Text(
-                        'Empty List',
-                        style:
-                        TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                    ),
+                    replacement: const EmptyListWidget(),
                     child: ListView.builder(
                       itemCount: _newTaskListWrapper.taskList?.length ?? 0,
                       itemBuilder: (context, index) {
@@ -172,3 +167,5 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
 
 
 }
+
+

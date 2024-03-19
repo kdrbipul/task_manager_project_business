@@ -4,6 +4,7 @@ import 'package:task_manager_project/data/services/network_caller.dart';
 import 'package:task_manager_project/data/utility/url.dart';
 import 'package:task_manager_project/presentation/screens/task_card.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
+import 'package:task_manager_project/presentation/widgets/empty_list_widget.dart';
 import 'package:task_manager_project/presentation/widgets/profile_bar.dart';
 import 'package:task_manager_project/presentation/widgets/snackbar_message.dart';
 
@@ -39,13 +40,7 @@ class _CompleteTaskScreenState extends State<CompleteTaskScreen> {
                 replacement: const Center(child: CircularProgressIndicator(),),
                 child: Visibility(
                   visible: _completedTaskListWrapper.taskList?.isNotEmpty ?? false,
-                  replacement: const Center(
-                    child: Text(
-                      'Empty List',
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                  replacement: const EmptyListWidget(),
                   child: ListView.builder(
                     itemCount: _completedTaskListWrapper.taskList?.length ?? 0,
                     itemBuilder: (context, index) {
