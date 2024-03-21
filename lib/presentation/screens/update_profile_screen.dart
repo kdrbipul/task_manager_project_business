@@ -1,13 +1,20 @@
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:task_manager_project/presentation/controllers/auth_contorller.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
 import 'package:task_manager_project/presentation/widgets/profile_bar.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key});
 
+
   @override
   State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
 }
+
 
 class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final TextEditingController _emailTEController = TextEditingController();
@@ -17,6 +24,19 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final TextEditingController _passwordTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _isObsecureText = true;
+  bool _updateProfileInProgress = false;
+  XFile? _pickedImage;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailTEController.text = AuthController.userData?.email ?? '';
+    _firstNameTEController.text = AuthController.userData?.firstName ?? '';
+    _lastNameTEController.text = AuthController.userData?.lastName ?? '';
+    _phoneTEController.text = AuthController.userData?.mobile ?? '';
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,39 +63,12 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   const SizedBox(
                     height: 16,
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: const BoxDecoration(
-                              color: Colors.black54,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(8),
-                                topLeft: Radius.circular(8),
-                              )),
-                          child: const Text(
-                            'Photo',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 6,
-                        ),
-                        const Text('image.png'),
-                      ],
-                    ),
-                  ),
+                  imagePickerButton(),
                   const SizedBox(
                     height: 8,
                   ),
                   TextFormField(
+                    enabled: false,
                     controller: _emailTEController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
@@ -123,7 +116,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     controller: _passwordTEController,
                     obscureText: _isObsecureText,
                     decoration: InputDecoration(
-                      hintText: 'Password',
+                      hintText: 'Password(Optional)',
                       labelText: 'Password',
                       suffixIcon: togglePassword(),
                     ),
@@ -149,6 +142,74 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     );
   }
 
+  Widget imagePickerButton() {
+    return GestureDetector(
+      onTap: (){
+        pickImageFromGallery();
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: const BoxDecoration(
+                  color: Colors.black54,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(8),
+                    topLeft: Radius.circular(8),
+                  )),
+              child: const Text(
+                'Photo',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(
+              width: 6,
+            ),
+            Expanded(
+                child: Text(
+                  maxLines: 1,
+              _pickedImage?.name ?? '',
+              style: const TextStyle(overflow: TextOverflow.ellipsis),
+            ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> pickImageFromGallery() async{
+    ImagePicker imagePicker = ImagePicker();
+    _pickedImage = await imagePicker.pickImage(source: ImageSource.camera);
+    setState(() {});
+}
+
+Future<void> _updteProfile()  async {
+    _updateProfileInProgress = true;
+    setState(() {});
+
+    Map<String, dynamic> inputParams = {
+      "email":_emailTEController.text,
+      "firstName":_firstNameTEController.text.trim(),
+      "lastName":_lastNameTEController.text.trim(),
+      "mobile":_phoneTEController.text.trim(),
+    };
+
+    if(_passwordTEController.text.isNotEmpty){
+      inputParams['password'] = _passwordTEController.text;
+    }
+
+    if(_pickedImage != null){
+      String photo = '';
+    }
+}
+
   IconButton togglePassword() {
     return IconButton(
       onPressed: () {
@@ -169,4 +230,5 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     _passwordTEController.dispose();
     super.dispose();
   }
+
 }
