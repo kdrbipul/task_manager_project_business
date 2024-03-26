@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:task_manager_project/app.dart';
-import 'package:task_manager_project/presentation/controllers/auth_contorller.dart';
+import 'package:task_manager_project/presentation/controllers/auth_controller.dart';
 import 'package:task_manager_project/presentation/screens/auth/sign_in_screen.dart';
 import 'package:task_manager_project/presentation/screens/update_profile_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:task_manager_project/app.dart';
 import 'package:task_manager_project/data/models/response_object.dart';
-import 'package:task_manager_project/presentation/controllers/auth_contorller.dart';
+import 'package:task_manager_project/presentation/controllers/auth_controller.dart';
 import 'package:task_manager_project/presentation/screens/auth/sign_in_screen.dart';
 
 // get request code start here

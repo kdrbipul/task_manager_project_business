@@ -3,13 +3,13 @@ import 'package:task_manager_project/data/models/login_response.dart';
 import 'package:task_manager_project/data/models/response_object.dart';
 import 'package:task_manager_project/data/services/network_caller.dart';
 import 'package:task_manager_project/data/utility/url.dart';
-import 'package:task_manager_project/presentation/controllers/auth_contorller.dart';
+import 'package:task_manager_project/presentation/controllers/auth_controller.dart';
 import 'package:task_manager_project/presentation/screens/auth/email_verification_screen.dart';
 import 'package:task_manager_project/presentation/screens/main_bottom_nav_screen.dart';
 import 'package:task_manager_project/presentation/screens/auth/sign_up_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 import 'package:task_manager_project/presentation/widgets/bg_image_screen.dart';
-import 'package:task_manager_project/presentation/widgets/snac_kbar_message.dart';
+import 'package:task_manager_project/presentation/widgets/snack_bar_message.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
