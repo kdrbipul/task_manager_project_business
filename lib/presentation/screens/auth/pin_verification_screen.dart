@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:task_manager_project/presentation/screens/auth/set_password_screen.dart';
 import 'package:task_manager_project/presentation/screens/auth/sign_in_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
@@ -53,12 +54,13 @@ class _PinVerifyScreenState extends State<PinVerifyScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
+                          /*Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const SetPasswordScreen(),
                           ),
-                        );
+                        );*/
+                          Get.to(()=> const SetPasswordScreen());
                       },
                         child: const Text('Verify'),
                       ),
