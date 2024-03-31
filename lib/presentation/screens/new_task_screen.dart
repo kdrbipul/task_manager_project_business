@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:task_manager_project/data/models/count_by_status_wrapper.dart';
 import 'package:task_manager_project/data/models/task_list_wrapper.dart';
 import 'package:task_manager_project/data/services/network_caller.dart';
@@ -80,12 +81,13 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async{
-          final result = await Navigator.push(
+          final result = await /*Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => const AddNewTaskScreen(),
             ),
-          );
+          );*/
+          Get.to(()=> const AddNewTaskScreen());
           if(result != null && result == true){
             _getDataFromApi();
           }

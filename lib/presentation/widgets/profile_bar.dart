@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:task_manager_project/app.dart';
 import 'package:task_manager_project/presentation/controllers/auth_controller.dart';
 import 'package:task_manager_project/presentation/screens/auth/sign_in_screen.dart';
@@ -13,12 +14,13 @@ PreferredSizeWidget get profileAppBar {
     backgroundColor: AppColor.themeColor,
     title: GestureDetector(
       onTap: () {
-        Navigator.push(
+        /*Navigator.push(
           TaskManager.navigatorKey.currentState!.context,
           MaterialPageRoute(
             builder: (context) => const UpdateProfileScreen(),
           ),
-        );
+        );*/
+        Get.to(()=> const UpdateProfileScreen());
       },
       child: Row(
         children: [

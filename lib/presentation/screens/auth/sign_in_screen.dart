@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:task_manager_project/data/models/login_response.dart';
 import 'package:task_manager_project/data/models/response_object.dart';
 import 'package:task_manager_project/data/services/network_caller.dart';
@@ -137,12 +138,13 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.push(
+                          /*Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const SignUpScreen(),
                             ),
-                          );
+                          );*/
+                          Get.to(()=> const SignUpScreen());
                         },
                         style: TextButton.styleFrom(
                           foregroundColor: AppColor.themeColor,

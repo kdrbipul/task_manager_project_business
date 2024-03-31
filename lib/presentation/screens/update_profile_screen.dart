@@ -156,7 +156,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       replacement: const Center(child: CircularProgressIndicator(),),
                       child: ElevatedButton(
                         onPressed: () {
-                          _updteProfile();
+                          _updateProfile();
                         },
                         child: const Icon(Icons.arrow_circle_right_outlined),
                       ),
@@ -219,7 +219,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     setState(() {});
 }
 
-Future<void> _updteProfile()  async {
+Future<void> _updateProfile()  async {
     String? photo;
     _updateProfileInProgress = true;
     setState(() {});
