@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:task_manager_project/presentation/screens/splash_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 
@@ -9,7 +10,7 @@ class TaskManager extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       navigatorKey: TaskManager.navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Task Manager Project',

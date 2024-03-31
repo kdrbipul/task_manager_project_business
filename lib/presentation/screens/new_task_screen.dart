@@ -125,7 +125,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
 
 
   Future<void> _getNewTaskStatus() async {
-    _getAllNewTaskStatusInProgress = false;
+    _getAllNewTaskStatusInProgress = true;
     setState(() {});
 
     final response = await NetworkCaller.getRequest(
