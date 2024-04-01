@@ -6,7 +6,7 @@ void main() {
   runApp(DevicePreview(
     enabled: false,
     builder: (context) {
-      return const TaskManager();
+      return  TaskManager();
     }
   ));
 }
