@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_manager_project/controller_binder.dart';
 import 'package:task_manager_project/presentation/screens/splash_screen.dart';
 import 'package:task_manager_project/presentation/utils/app_color.dart';
 
@@ -17,8 +18,12 @@ class TaskManager extends StatelessWidget {
       title: 'Task Manager Project',
       home: const SplashScreen(),
       theme: _themeData,
+      initialBinding: ControllerBinding(),
     );
   }
+
+
+
   final ThemeData _themeData = ThemeData(
     inputDecorationTheme: InputDecorationTheme(
       fillColor: Colors.white,
@@ -69,3 +74,4 @@ class TaskManager extends StatelessWidget {
     ),
   );
 }
+
