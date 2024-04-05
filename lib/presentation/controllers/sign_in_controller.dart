@@ -7,8 +7,11 @@ import 'package:task_manager_project/presentation/controllers/auth_controller.da
 
 class SingInController extends GetxController{
   bool _inProgress = false;
+  String? _errorMessage;
 
   bool get inProgress => _inProgress;
+
+  String get errorMessage => _errorMessage ?? 'Login Failed! Try again';
 
   Future<bool> signIn(String email, String password) async{
     _inProgress = true;
@@ -35,6 +38,7 @@ class SingInController extends GetxController{
       return true;
 
     }else{
+      _errorMessage = response.errorMessage;
       update();
       return false;
     }
